@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -26,6 +26,19 @@ def bootstrap_grid():
 @app.route('/contact')
 def bootstrap_form():
     return render_template("contact.html")
+
+@app.route('/confirmation')
+def confirmation():
+    name = request.args.get('name')
+    email = request.args.get('email')
+    address = request.args.get('address')
+    props = {
+       "name": name,
+       "email": email,
+        "address": address
+
+    }
+    return render_template("confirmation.html", data=props)
 
 if __name__ == '__main__':
     app.run(debug=True, port=5050)
